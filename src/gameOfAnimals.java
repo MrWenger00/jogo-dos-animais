@@ -1,3 +1,4 @@
+
 /**@author Guilherme Wenger
  * 
  */
@@ -22,7 +23,7 @@ public class gameOfAnimals {
 
 	public static void main(String[] args) {
 		try {
-			String lookAndFeel = UIManager.getSystemLookAndFeelClassName(); 
+			String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
 			UIManager.setLookAndFeel(lookAndFeel);
 		} catch (Exception e) {
 			Logger.getLogger(gameOfAnimals.class.getName()).log(Level.SEVERE, null, e);
@@ -32,9 +33,10 @@ public class gameOfAnimals {
 		createScreen();
 
 	}
-	//criar tela principal
+
+	// criar tela principal
 	public static void createScreen() {
-		jfbegin = new JFrame("Pesquisar conexões");
+		jfbegin = new JFrame("Animais");
 		jfbegin.setSize(200, 100);
 		jfbegin.setLocationRelativeTo(null);
 		jfbegin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,9 +45,9 @@ public class gameOfAnimals {
 		startingComponents();
 	}
 
-	//criar e inicializar componentes da tela principal
+	// criar e inicializar componentes da tela principal
 	public static void startingComponents() {
-		
+
 		jpBegin = new JPanel();
 		jpBegin.setSize(200, 100);
 		jpBegin.setLayout(null);
@@ -53,7 +55,7 @@ public class gameOfAnimals {
 
 		jlBegin = new JLabel("Pense em um animal.");
 		jlBegin.setSize(150, 20);
-		jlBegin.setLocation(40, 10);
+		jlBegin.setLocation(48, 10);
 		jlBegin.setVisible(true);
 
 		jbBegin = new JButton("Ok");
@@ -63,7 +65,8 @@ public class gameOfAnimals {
 
 		displaySreen();
 	}
-	//exibir tela
+
+	// exibir tela
 	public static void displaySreen() {
 		jfbegin.setVisible(true);
 		jfbegin.add(jpBegin);
@@ -74,7 +77,7 @@ public class gameOfAnimals {
 
 	}
 
-	//ações da tela
+	// ações da tela
 	public static void actions() {
 		jbBegin.addActionListener(new ActionListener() {
 
@@ -85,7 +88,8 @@ public class gameOfAnimals {
 		});
 
 	}
-	//inicializar a arvore
+
+	// inicializar a arvore
 	public static tree createTree(tree newTree) {
 		node initialNode = new node();
 		newTree.root = initialNode;
@@ -93,61 +97,67 @@ public class gameOfAnimals {
 
 		return newTree;
 	}
-	//percorrer a arvore
+
+	// percorrer a arvore
 	public static void travel(node node, String animal) {
 		String question = node.question;
 		if (JOptionPane.showConfirmDialog(null, question, "Jogo dos animais", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-			if(!animal.equals("")){
-				animal =node.animalName;
-			}else{
+			if (!animal.equals("")) {
+				animal = node.animalName;
+			} else {
 				animal = "Tubarão";
 			}
-			
+
 			if (node.left != null) {
 				travel(node.left, animal);
-			}else {
-				
-				if (JOptionPane.showConfirmDialog(null, "O animal que você pensou é " + animal + "?", "Jogo dos animais",			
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-					
+			} else {
+
+				if (JOptionPane.showConfirmDialog(null, "O animal que você pensou é " + animal + "?",
+						"Jogo dos animais", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+
 					JOptionPane.showMessageDialog(null, "Acertei novamente!");
-			
+
 				} else {
-	
+
 					node newNode = new node();
-					newNode.animalName = JOptionPane.showInputDialog("Qual animal você pensou?");
-					newNode.tip = JOptionPane.showInputDialog("Um(a) " + newNode.animalName + " _________ mas um " + animal + " não.");
+					newNode.animalName = JOptionPane.showInputDialog(null, "Qual animal você pensou?", "Desisto",
+							JOptionPane.QUESTION_MESSAGE);
+					newNode.tip = JOptionPane.showInputDialog(null,
+							"Um(a) " + newNode.animalName + " _________ mas um " + animal + " não.", "Complete", 1);
 					newNode.question = "O animal que você pensou " + newNode.tip + "?";
 					node.left = newNode;
 				}
-			}	
-			
+			}
+
 		} else {
 
-			if(animal.equals("")){
-				animal ="Macaco";
+			if (animal.equals("")) {
+				animal = "Macaco";
 			}
-					
+
 			if (node.right != null) {
 				travel(node.right, animal);
-			}else{
-				
-				if (JOptionPane.showConfirmDialog(null, "O animal que você pensou é " + animal + "?", "Jogo dos animais",			
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-					
+			} else {
+
+				if (JOptionPane.showConfirmDialog(null, "O animal que você pensou é " + animal + "?",
+						"Jogo dos animais", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+
 					JOptionPane.showMessageDialog(null, "Acertei novamente!");
-				
-			
+
 				} else {
-	
+
 					node newNode = new node();
-					newNode.animalName = JOptionPane.showInputDialog("Qual animal você pensou?");
-					newNode.tip = JOptionPane.showInputDialog("Um(a) " + newNode.animalName + " _________ mas um " + animal + " não.");
+					newNode.animalName = JOptionPane.showInputDialog(null, "Qual animal você pensou?", "Desisto",
+							JOptionPane.QUESTION_MESSAGE);
+					newNode.tip = JOptionPane.showInputDialog(null,
+							"Um(a) " + newNode.animalName + " _________ mas um " + animal + " não.", "Complete", 1);
 					newNode.question = "O animal que você pensou " + newNode.tip + "?";
 					node.right = newNode;
 				}
-			}	
+			}
 		}
 	}
 }
